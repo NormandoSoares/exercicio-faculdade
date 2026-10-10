@@ -1,0 +1,607 @@
+/* ==============================
+   2.1 - RESET CSS
+   ============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ==============================
+   2.2 - DESIGN SYSTEM
+   ============================== */
+
+:root {
+    /* Cores: primárias */
+    --cor-primaria: #B71C1C;
+    --cor-primaria-escura: #8E1515;
+
+    /* Cores: secundárias */
+    --cor-secundaria: #1F4E79;
+    --cor-secundaria-escura: #163A5A;
+
+    /* Cores: fundos */
+    --cor-fundo: #FFFFFF;
+    --cor-fundo-alternativo: #F7F3F0;
+
+    /* Cores: textos */
+    --cor-texto: #212121;
+    --cor-texto-suave: #5A5A5A;
+
+    /* Cores: bordas */
+    --cor-borda: #D0C8C2;
+
+    /* Cores: feedback */
+    --cor-sucesso: #1B5E20;
+    --cor-erro: #B00020;
+
+    /* Tipografia */
+    --fonte-principal: "Segoe UI", Roboto, Arial, sans-serif;
+    --fonte-auxiliar: 0.875rem;
+    --fonte-base: 1rem;
+    --fonte-subtitulo: 1.25rem;
+    --fonte-titulo: 1.75rem;
+    --fonte-titulo-principal: 2.5rem;
+
+    /* Espaçamentos */
+    --espaco-1: 0.5rem;
+    --espaco-2: 1rem;
+    --espaco-3: 1.5rem;
+    --espaco-4: 2rem;
+    --espaco-5: 2.5rem;
+    --espaco-6: 3rem;
+
+    /* Sombras */
+    --sombra-suave: 0 2px 6px rgba(0, 0, 0, 0.12);
+    --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+    /* Border-radius */
+    --raio-pequeno: 4px;
+    --raio-medio: 8px;
+    --raio-grande: 16px;
+}
+body {
+    font-family: var(--fonte-principal);
+    font-size: var(--fonte-base);
+    color: var(--cor-texto);
+    background-color: var(--cor-fundo);
+}
+
+h1 {
+    font-size: var(--fonte-titulo-principal);
+}
+
+h2 {
+    font-size: var(--fonte-titulo);
+}
+
+h3 {
+    font-size: var(--fonte-subtitulo);
+}
+
+footer p {
+    font-size: var(--fonte-auxiliar);
+}
+
+/* ==============================
+   2.3 - LAYOUT MACRO COM CSS GRID
+   ============================== */
+
+header,
+main,
+footer {
+    --grid-gap: var(--espaco-2);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap);
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding: var(--espaco-2);
+}
+
+main {
+    align-items: start;
+}
+
+header > h1,
+header > nav,
+main > section,
+footer > p {
+    grid-column: 1 / -1;
+}
+
+main > section:has(> article) {
+    display: grid;
+    grid-template-columns: subgrid;
+    gap: var(--grid-gap);
+}
+
+main > section:has(> article) > h2 {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 480px) {
+    header,
+    main,
+    footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    header,
+    main,
+    footer {
+        --grid-gap: var(--espaco-3);
+        grid-template-columns: repeat(4, 1fr);
+        padding: var(--espaco-3);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    header,
+    main,
+    footer {
+        --grid-gap: var(--espaco-3);
+        grid-template-columns: repeat(8, 1fr);
+        padding: var(--espaco-3);
+    }
+
+    header > h1 {
+        grid-column: span 4;
+    }
+
+    header > nav {
+        grid-column: span 4;
+    }
+
+    main:has(img) > section:nth-child(-n+2) {
+        grid-column: span 4;
+    }
+
+    main > section:has(> article) > article {
+        grid-column: span 4;
+    }
+
+    main:has(article) > section:nth-child(n+2) {
+        grid-column: span 4;
+    }
+
+    main:has(form) > section {
+        grid-column: 2 / span 6;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+    header,
+    main,
+    footer {
+        --grid-gap: var(--espaco-4);
+        grid-template-columns: repeat(12, 1fr);
+        padding: var(--espaco-4);
+    }
+
+    header > h1 {
+        grid-column: span 4;
+    }
+
+    header > nav {
+        grid-column: span 8;
+    }
+
+    main:has(img) > section:nth-child(1) {
+        grid-column: 1 / span 6;
+    }
+
+    main:has(img) > section:nth-child(2) {
+        grid-column: 1 / span 6;
+    }
+
+    main:has(img) > section:nth-child(3) {
+        grid-column: 7 / span 6;
+        grid-row: 1 / span 2;
+    }
+
+    main > section:has(> article) > article {
+        grid-column: span 4;
+    }
+
+    main:has(article) > section:nth-child(n+2) {
+        grid-column: span 6;
+    }
+
+    main:has(form) > section {
+        grid-column: 3 / span 8;
+    }
+}
+
+@media (min-width: 1400px) {
+    header,
+    main,
+    footer {
+        --grid-gap: var(--espaco-5);
+        grid-template-columns: repeat(12, 1fr);
+        max-width: 1320px;
+        padding: var(--espaco-5);
+    }
+
+    header > h1 {
+        grid-column: span 4;
+    }
+
+    header > nav {
+        grid-column: span 8;
+    }
+
+    main:has(img) > section:nth-child(1) {
+        grid-column: 1 / span 6;
+    }
+
+    main:has(img) > section:nth-child(2) {
+        grid-column: 1 / span 6;
+    }
+
+    main:has(img) > section:nth-child(3) {
+        grid-column: 7 / span 6;
+        grid-row: 1 / span 2;
+    }
+
+    main > section:has(> article) > article {
+        grid-column: span 4;
+    }
+
+    main:has(article) > section:nth-child(n+2) {
+        grid-column: span 6;
+    }
+
+    main:has(form) > section {
+        grid-column: 3 / span 8;
+    }
+}
+
+/* ==============================
+   2.4 - LAYOUT MICRO COM FLEXBOX
+   MÓDULO 1 - NAVEGAÇÃO PRINCIPAL
+   ============================== */
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+}
+
+/* ==============================
+   2.4 - MÓDULO 2
+   CARTÕES DE PROJETOS
+   ============================== */
+
+main > section:has(> article) > article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: var(--espaco-2);
+}
+
+/* ==============================
+   2.4 - MÓDULO 3
+   GRUPO PREFERÊNCIAS DO FORMULÁRIO
+   ============================== */
+
+form > fieldset:nth-of-type(3) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+}
+
+form > fieldset:nth-of-type(3) > p {
+    display: flex;
+    align-items: center;
+    gap: var(--espaco-1);
+}
+
+/* ==============================
+   3.1 - NAVEGAÇÃO RESPONSIVA/INTERATIVA
+   ============================== */
+
+nav a {
+    color: var(--cor-texto);
+    text-decoration: none;
+    padding: var(--espaco-1) var(--espaco-2);
+    border-radius: var(--raio-pequeno);
+}
+
+nav a:hover {
+    color: var(--cor-primaria);
+    background-color: var(--cor-fundo-alternativo);
+}
+
+nav a:focus-visible {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 2px;
+}
+
+/* ==============================
+   3.2 - CARDS E IMAGEM/MÍDIA
+   CARDS DOS PROJETOS
+   ============================== */
+
+main > section:has(> article) > article {
+    background-color: var(--cor-fundo-alternativo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-medio);
+    padding: var(--espaco-2);
+    box-shadow: var(--sombra-suave);
+}
+
+/* ==============================
+   3.2 - IMAGEM/MÍDIA
+   ============================== */
+
+main img {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: var(--raio-medio);
+    box-shadow: var(--sombra-suave);
+}
+
+/* ==============================
+   3.3 - FORMULÁRIO
+   CAMPOS DE ENTRADA
+   ============================== */
+
+form input {
+    width: 100%;
+    max-width: 500px;
+    padding: var(--espaco-1);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-pequeno);
+    font-family: var(--fonte-principal);
+    font-size: var(--fonte-base);
+}
+
+/* ==============================
+   3.3 - FORMULÁRIO
+   FOCO DOS CAMPOS
+   ============================== */
+
+form input:focus {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 2px;
+}
+
+/* ==============================
+   3.3 - FORMULÁRIO
+   FIELDSET E LEGEND
+   ============================== */
+
+form fieldset {
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-medio);
+    padding: var(--espaco-2);
+    margin-bottom: var(--espaco-2);
+}
+
+form legend {
+    padding: 0 var(--espaco-1);
+    font-weight: bold;
+    color: var(--cor-secundaria);
+}
+
+/* ==============================
+   3.3 - FORMULÁRIO
+   CONTROLES DE SELEÇÃO E TEXTOS
+   ============================== */
+
+form input[type="radio"],
+form input[type="checkbox"] {
+    width: auto;
+    max-width: none;
+    padding: 0;
+}
+
+form label {
+    display: inline-block;
+    margin-bottom: var(--espaco-1);
+}
+
+form fieldset p {
+    margin-bottom: var(--espaco-2);
+}
+
+/* ==============================
+   3.3 - FORMULÁRIO
+   VALIDAÇÃO DOS CAMPOS
+   ============================== */
+
+form input:valid {
+    border-color: var(--cor-sucesso);
+}
+
+form input:invalid {
+    border-color: var(--cor-erro);
+}
+
+/* ==============================
+   3.4 - ACESSIBILIDADE
+   ESTADO ATIVO DOS LINKS
+   ============================== */
+
+nav a:active {
+    color: var(--cor-fundo);
+    background-color: var(--cor-primaria);
+}
+
+/* Complemento da navegação: dropdown e menu hambúrguer */
+
+nav {
+    position: relative;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-icon {
+    display: none;
+}
+
+nav > ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+    list-style: none;
+}
+
+nav > ul > li {
+    position: relative;
+}
+
+nav .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--espaco-1);
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-medio);
+    box-shadow: var(--sombra-suave);
+    z-index: 10;
+    list-style: none;
+}
+
+nav .submenu li {
+    width: 100%;
+}
+
+nav .submenu a {
+    display: block;
+    width: 100%;
+}
+
+nav .dropdown:hover > .submenu,
+nav .dropdown:focus-within > .submenu {
+    display: flex;
+}
+
+/* Menu hambúrguer em telas menores */
+
+@media (max-width: 767px) {
+
+    .menu-icon {
+        display: block;
+        width: fit-content;
+        padding: var(--espaco-1) var(--espaco-2);
+        color: var(--cor-texto);
+        font-size: 1.5rem;
+        cursor: pointer;
+        border-radius: var(--raio-pequeno);
+    }
+
+    .menu-icon:hover {
+        color: var(--cor-primaria);
+        background-color: var(--cor-fundo-alternativo);
+    }
+
+    .menu-icon:focus-visible {
+        outline: 2px solid var(--cor-primaria);
+        outline-offset: 2px;
+    }
+
+    nav > ul {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: var(--espaco-1);
+        margin-top: var(--espaco-1);
+    }
+
+    #menu-toggle:checked + .menu-icon + ul {
+        display: flex;
+    }
+
+    nav .submenu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        padding-left: var(--espaco-2);
+    }
+
+    nav .dropdown:hover > .submenu,
+    nav .dropdown:focus-within > .submenu {
+        display: none;
+    }
+
+    #menu-toggle:checked + .menu-icon + ul .dropdown:hover > .submenu,
+    #menu-toggle:checked + .menu-icon + ul .dropdown:focus-within > .submenu {
+        display: flex;
+    }
+}
+
+/* Ajuste dos cards para telas pequenas */
+
+@media (min-width: 481px) and (max-width: 767px) {
+    main > section:has(> article) > article {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Badges dos projetos */
+
+.badge {
+    display: inline-block;
+    width: fit-content;
+    padding: var(--espaco-1) var(--espaco-2);
+    background-color: var(--cor-secundaria);
+    color: var(--cor-fundo);
+    font-size: var(--fonte-auxiliar);
+    font-weight: bold;
+    border-radius: var(--raio-pequeno);
+}
+
+/* Alerta de informação */
+
+.alerta {
+    grid-column: 1 / -1;
+    padding: var(--espaco-2);
+    background-color: var(--cor-fundo-alternativo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-secundaria);
+    border-radius: var(--raio-medio);
+    box-shadow: var(--sombra-suave);
+}
+
+.alerta strong {
+    color: var(--cor-secundaria);
+}
+
+/* Toast de confirmação */
+
+.toast {
+    grid-column: 1 / -1;
+    padding: var(--espaco-2);
+    background-color: var(--cor-sucesso);
+    color: var(--cor-fundo);
+    border-radius: var(--raio-medio);
+    box-shadow: var(--sombra-suave);
+}
+
+.toast strong {
+    display: block;
+    margin-bottom: var(--espaco-1);
+}
