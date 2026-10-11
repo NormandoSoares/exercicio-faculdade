@@ -151,6 +151,8 @@ export function renderizarCadastro() {
     const mensagemFormulario = document.createElement("p");
     mensagemFormulario.id = "mensagem-formulario";
     formulario.appendChild(mensagemFormulario);
+    mensagemFormulario.setAttribute("role", "status");
+    mensagemFormulario.setAttribute("aria-live", "polite");
 
     formulario.addEventListener("submit", function (event) {
         event.preventDefault();
